@@ -136,15 +136,7 @@ export function useClasses() {
       return;
     }
 
-    update(id, (c) => ({
-      isLoadingMore: false,
-      message: `Ditambahkan ${newHits.length} gambar baru. Pilih yang kamu mau di daftar.`,
-      preview: c.preview && {
-        ...c.preview,
-        hits: [...c.preview.hits, ...newHits],
-        page: nextPage,
-      },
-    }));
+    update(id, { isLoadingMore: true });
 
     try {
       const data = await fetchPixabayPage(
@@ -165,14 +157,10 @@ export function useClasses() {
 
       update(id, (c) => ({
         isLoadingMore: false,
-        message: `Ditambahkan ${newHits.length} gambar baru (tidak ada yang duplikat dari sebelumnya).`,
+        message: `Ditambahkan ${newHits.length} gambar baru. Pilih yang kamu mau di daftar.`,
         preview: c.preview && {
           ...c.preview,
           hits: [...c.preview.hits, ...newHits],
-          selected: new Set([
-            ...c.preview.selected,
-            ...newHits.map((h) => h.id),
-          ]),
           page: nextPage,
         },
       }));
