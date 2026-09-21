@@ -136,7 +136,15 @@ export function useClasses() {
       return;
     }
 
-    update(id, { isLoadingMore: true });
+    update(id, (c) => ({
+      isLoadingMore: false,
+      message: `Ditambahkan ${newHits.length} gambar baru. Pilih yang kamu mau di daftar.`,
+      preview: c.preview && {
+        ...c.preview,
+        hits: [...c.preview.hits, ...newHits],
+        page: nextPage,
+      },
+    }));
 
     try {
       const data = await fetchPixabayPage(
