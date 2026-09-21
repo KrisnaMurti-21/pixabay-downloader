@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #eeeade;
+  --color-card: #ffffff;
+  --color-primary: #095ac3;
+  --color-primary-container: #d8e2ff;
+  --color-on-primary-container: #002c67;
+  --color-secondary: #006c4b;
+  --color-secondary-container: #c9f7e3;
+  --color-on-secondary-container: #00714e;
+  --color-amber: #fef08a;
+  --color-on-amber: #5c4300;
+  --color-sky: #8ab4f8;
+  --color-soft: #f4f2ea;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-title: #1e293b;
+  --color-body: #475569;
+  --color-muted: #94a3b8;
+  --color-line: #ddd8c8;
+
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+}
+
+@layer base {
+  body {
+    @apply bg-background font-sans text-title antialiased;
+  }
+}
+
+/* Wajib di dalam @layer components supaya bisa di-override utility
+   seperti text-[16px] (CSS di luar layer akan mengalahkan utility di Tailwind v4) */
+@layer components {
+  .material-symbols-outlined {
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
+    font-size: 18px;
+    vertical-align: middle;
+  }
+  .clay-panel {
+    box-shadow:
+      inset 0 2px 5px rgba(255, 255, 255, 0.9),
+      0 14px 26px -10px rgba(30, 41, 59, 0.16);
+  }
+  .clay-input {
+    box-shadow: inset 0 2px 4px rgba(30, 41, 59, 0.07);
+  }
+  .clay-btn {
+    box-shadow:
+      inset 0 2px 3px rgba(255, 255, 255, 0.6),
+      0 6px 14px -3px rgba(30, 41, 59, 0.18);
+  }
+  .clay-btn:active {
+    transform: translateY(1px);
+  }
+}
