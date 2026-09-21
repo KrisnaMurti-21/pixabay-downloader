@@ -20,11 +20,17 @@ export function sanitizeFolderName(name: string): string {
       .replace(/\s+/g, "_") || "kelas"
   );
 }
+function toDownloadUrl(url: string): string {
+  // Di dev (localhost) tetap langsung; di production lewat proxy
+  if (import.meta.env.DEV) return url;
+  return `/api/image?url=${encodeURIComponent(url)}`;
+}
 
 async function downloadAsBlob(url: string): Promise<Blob> {
+  const target = toDownloadUrl(url);
+
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
-    // Error jaringan/CORS (TypeError) langsung dilempar, tidak di-retry
-    const res = await fetch(url);
+    const res = await fetch(target);
     if (res.ok) return res.blob();
 
     const retryable = res.status === 429 || res.status >= 500;
