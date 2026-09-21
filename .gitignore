@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables (API key jangan sampai ter-commit)
+.env
+.env.local
+.env.*.local
+!.env.example

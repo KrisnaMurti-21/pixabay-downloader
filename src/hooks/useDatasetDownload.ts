@@ -29,9 +29,15 @@ export function useDatasetDownload(classes: ClassItem[]) {
 
     setIsBusy(true);
     try {
-      const blob = await buildDatasetZip(jobs, setStatus);
+      const { blob, total, success } = await buildDatasetZip(jobs, setStatus);
       saveBlob(blob, "dataset_gambar.zip");
-      setStatus("Selesai — ZIP sudah diunduh.");
+
+      const failed = total - success;
+      setStatus(
+        failed === 0
+          ? `Selesai — ${success} gambar masuk ke ZIP.`
+          : `Selesai — ${success} dari ${total} gambar berhasil, ${failed} gagal (lihat Console untuk alasannya).`,
+      );
     } catch (err) {
       setStatus("Terjadi kesalahan: " + getErrorMessage(err));
     } finally {
